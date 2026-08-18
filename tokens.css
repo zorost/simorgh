@@ -1,0 +1,20 @@
+:root {
+  --color-paper: oklch(19% 0.038 262);
+  --color-paper-2: oklch(23% 0.04 262);
+  --color-ink: oklch(96% 0.018 92);
+  --color-ink-2: oklch(84% 0.03 92);
+  --color-saffron: oklch(78% 0.155 78);
+  --color-verdigris: oklch(74% 0.09 188);
+  --color-rose: oklch(72% 0.11 18);
+  --color-rule: oklch(42% 0.04 262);
+  --font-display: "Vazirmatn", sans-serif;
+  --font-verse: "Scheherazade New", serif;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 32px;
+  --text-md: 1.05rem;
+  --text-xl: 2rem;
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --dur-fast: 180ms;
+  --radius-sm: 2px;
+}
