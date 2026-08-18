@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>سیمرغ · نقشهٔ دانش شعر کهن فارسی</title>
+    <meta
+      name="description"
+      content="سیمرغ: نقشهٔ دانش تعاملی، اطلس تاریخی و کاوشگر مستند شعر کهن فارسی بر پایهٔ داده‌های گنجور."
+    />
+    <meta name="theme-color" content="#06080f" />
+    <meta property="og:title" content="سیمرغ · Simorgh Persian Poetry Knowledge Graph" />
+    <meta
+      property="og:description"
+      content="Interactive knowledge graph, historical atlas, and cited verse explorer for classical Persian poetry."
+    />
+    <meta property="og:image" content="./og.png" />
+    <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Scheherazade+New:wght@400;500;700&family=Vazirmatn:wght@300;400;500;600;700&family=Noto+Nastaliq+Urdu:wght@700&display=swap"
+      rel="stylesheet"
+    />
+    <script type="module" crossorigin src="./assets/index-DjqzpjmO.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-D8IRlAyt.css">
+  </head>
+  <body>
+    <div class="veil" aria-hidden="true"></div>
+
+    <header class="crown" id="crown">
+      <a class="brand" href="#/">
+        <img class="brand-mark" src="./simorgh-phoenix.png" alt="" width="38" height="38" />
+        <span class="brand-text">
+          <strong class="brand-name" data-i18n="brand">سیمرغ</strong>
+          <small class="brand-sub" data-i18n="tagline">نقشهٔ دانش شعر کهن فارسی</small>
+        </span>
+      </a>
+
+      <form class="seek" id="seek-form" role="search" onsubmit="return false;">
+        <svg class="seek-icon" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M15.5 14h-.8l-.3-.3a6.5 6.5 0 1 0-.7.7l.3.3v.8l5 5 1.5-1.5-5-5Zm-6 0a4.5 4.5 0 1 1 0-9 4.5 4.5 0 0 1 0 9Z"/></svg>
+        <label class="sr" for="seek" data-i18n="searchLabel">جستجو</label>
+        <input
+          id="seek"
+          type="search"
+          autocomplete="off"
+          spellcheck="false"
+          data-i18n-placeholder="searchPh"
+          placeholder="سخنور، مصراع یا مضمون…"
+        />
+        <div id="seek-results" class="seek-results" hidden></div>
+      </form>
+
+      <nav class="tabs" id="tabs" aria-label="نماها">
+        <button type="button" class="tab is-on" data-mode="graph">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="5" cy="4.5" r="2.2"/><circle cx="19" cy="7.5" r="2.2"/><circle cx="8.5" cy="18.5" r="2.2"/><circle cx="17.5" cy="20" r="1.7"/><path d="M7 5.1 16.8 7m-10.9-.8 2 9.9m3.2-.4 4.6 3.4"/></g></svg>
+          <span data-i18n="modeGraph">نقشهٔ دانش</span>
+        </button>
+        <button type="button" class="tab" data-mode="atlas">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.6" d="M12 21c4-3.8 7-7.2 7-11a7 7 0 1 0-14 0c0 3.8 3 7.2 7 11Z"/><circle cx="12" cy="10" r="2.6" fill="currentColor"/></svg>
+          <span data-i18n="modeAtlas">اطلس سخنوران</span>
+        </button>
+        <button type="button" class="tab" data-mode="chat">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.6" d="M4 5.5h16v10.5h-9l-4.5 3.5v-3.5H4z"/></svg>
+          <span data-i18n="modeChat">گفتگوی مستند</span>
+        </button>
+      </nav>
+
+      <button type="button" class="lang" id="lang" aria-label="English">EN</button>
+    </header>
+
+    <main class="stage" id="stage">
+      <div id="graph-wrap" class="graph-wrap">
+        <div id="graph-mount" class="graph-mount" aria-label="گراف دانش سخنوران"></div>
+
+        <div class="filters" id="filters" role="toolbar" aria-label="لایه‌ها">
+          <button type="button" class="chip is-on" data-filter="all" data-i18n="filterAll">همهٔ پیوندها</button>
+          <button type="button" class="chip" data-filter="poets" data-i18n="filterPoets">سخنوران و سده‌ها</button>
+          <button type="button" class="chip" data-filter="themes" data-i18n="filterThemes">مضامین</button>
+          <button type="button" class="chip" data-filter="places" data-i18n="filterPlaces">خاستگاه‌ها</button>
+          <button type="button" class="chip" data-filter="featured" data-i18n="filterFeatured">گنجینهٔ نمایه</button>
+        </div>
+
+        <div class="legend" id="legend">
+          <span class="legend-item"><i class="dot poet"></i><span data-i18n="legendPoet">سخنور</span></span>
+          <span class="legend-item"><i class="dot century"></i><span data-i18n="legendCentury">سده</span></span>
+          <span class="legend-item"><i class="dot theme"></i><span data-i18n="legendTheme">مضمون</span></span>
+          <span class="legend-item"><i class="dot place"></i><span data-i18n="legendPlace">خاستگاه</span></span>
+          <span class="legend-item" id="legend-poem" hidden><i class="dot poem"></i><span data-i18n="legendPoem">شعر نمایه‌شده</span></span>
+        </div>
+
+        <div class="zoomer" id="zoomer">
+          <button type="button" id="z-in" aria-label="بزرگ‌نمایی">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" d="M12 5.5v13M5.5 12h13"/></svg>
+          </button>
+          <button type="button" id="z-out" aria-label="کوچک‌نمایی">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" d="M5.5 12h13"/></svg>
+          </button>
+          <button type="button" id="z-fit" aria-label="نمای کامل">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" d="M4 9V4h5M15 4h5v5M20 15v5h-5M9 20H4v-5"/></svg>
+          </button>
+        </div>
+
+        <div id="hovercard" class="hovercard" hidden></div>
+      </div>
+
+      <section id="atlas" class="atlas" hidden>
+        <div class="atlas-bar">
+          <input
+            id="atlas-seek"
+            type="search"
+            autocomplete="off"
+            data-i18n-placeholder="atlasSearchPh"
+            placeholder="جستجوی سخنور…"
+          />
+          <div class="atlas-centuries" id="atlas-centuries"></div>
+        </div>
+        <div class="atlas-grid" id="atlas-grid"></div>
+      </section>
+
+      <section id="chat" class="chat" hidden>
+        <div class="chat-scroll" id="chat-log"></div>
+        <div class="chat-composer">
+          <div class="chat-prompts" id="chat-prompts"></div>
+          <form id="chat-form" class="chat-form">
+            <label class="sr" for="chat-q" data-i18n="chatLabel">پرسش</label>
+            <textarea
+              id="chat-q"
+              rows="1"
+              data-i18n-placeholder="chatPh"
+              placeholder="از یک مضمون، سخنور یا مصراع بپرسید…"
+            ></textarea>
+            <button type="submit" class="chat-send" id="chat-send" data-i18n="ask">بپرس</button>
+          </form>
+        </div>
+      </section>
+
+      <aside id="inspector" class="inspector" hidden></aside>
+    </main>
+
+    <div id="reader" class="reader" hidden>
+      <div class="reader-card" id="reader-card" role="dialog" aria-modal="true"></div>
+    </div>
+
+    <footer class="base" id="base">
+      <span id="status">…</span>
+      <span class="base-credit">
+        <a class="credit" href="https://x.com/FereydunHashemi" target="_blank" rel="noreferrer">
+          <span data-i18n="craftedBy">به کوشش</span>
+          <strong data-i18n="creditName">دکتر فریدون هاشمی</strong>
+          <svg class="x-glyph" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M18.9 2H22l-6.8 7.8L23.2 22h-6.3l-4.9-6.4L6.4 22H3.2l7.3-8.4L2.8 2h6.4l4.4 5.9L18.9 2Zm-1.1 18h1.7L7.1 3.9H5.3L17.8 20Z"/></svg>
+        </a>
+      </span>
+      <span class="base-src">
+        <span data-i18n="src">داده‌ها از</span>
+        <a class="ganjoor-name" href="https://ganjoor.net" target="_blank" rel="noreferrer" lang="fa" title="ganjoor.net">گنجور</a>
+        <a class="src-repo" href="https://github.com/ganjoor/ganjoor-data" target="_blank" rel="noreferrer">ganjoor-data</a>
+      </span>
+      <nav class="m-tabs" aria-label="نماها">
+        <button type="button" class="m-tab is-on" data-mode="graph">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="5" cy="4.5" r="2.2"/><circle cx="19" cy="7.5" r="2.2"/><circle cx="8.5" cy="18.5" r="2.2"/><circle cx="17.5" cy="20" r="1.7"/><path d="M7 5.1 16.8 7m-10.9-.8 2 9.9m3.2-.4 4.6 3.4"/></g></svg>
+          <span data-i18n="modeGraph">نقشهٔ دانش</span>
+        </button>
+        <button type="button" class="m-tab" data-mode="atlas">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.6" d="M12 21c4-3.8 7-7.2 7-11a7 7 0 1 0-14 0c0 3.8 3 7.2 7 11Z"/><circle cx="12" cy="10" r="2.6" fill="currentColor"/></svg>
+          <span data-i18n="modeAtlas">اطلس سخنوران</span>
+        </button>
+        <button type="button" class="m-tab" data-mode="chat">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.6" d="M4 5.5h16v10.5h-9l-4.5 3.5v-3.5H4z"/></svg>
+          <span data-i18n="modeChat">گفتگوی مستند</span>
+        </button>
+      </nav>
+    </footer>
+
+  </body>
+</html>
